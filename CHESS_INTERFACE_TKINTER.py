@@ -1,5 +1,9 @@
 # ## Stand alone apps interface with tkinter based on Romans Prototype :)
 
+####################################################################################################
+# CHESS INTERFACE USING PYQT5                                                                      
+####################################################################################################
+
 import tkinter as tk
 from tkinter.simpledialog import askstring
 import sqlite3

@@ -1,4 +1,12 @@
 # 4-Player-Project
-databse file, data is not correct yet but format should be fine! Data too big to upload directly, code takes some time to create it, better to download it here.
+Database: 
+Data should now be correct, i only used rounds with all 4 players present, its nearly impossible (at least for me) to determine which player dropped out for 100%.
+If you want to create the database:
+- Change folder path in the database.py file
+- Put .txt files into the same folder as the main.py and database.py files
+- Change text file names in all "with open" lines.
 
-https://filehorst.de/d/ekFGaggm
+Here the database file:
+https://easyupload.io/u1b3vc
+
+

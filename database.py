@@ -29,7 +29,7 @@ class Database():
 
     # function to read the data out of the database, returns list with tuples
     def display(self):
-        self.cursor.execute('''SELECT * from players ORDER BY score DESC''')
+        self.cursor.execute('''SELECT * from chess WHERE Game_id = 626634''')
         return self.cursor.fetchall()
 
     # function used to actually do the functions above if called afterwards

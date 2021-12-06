@@ -79,7 +79,7 @@ feeds = set()
 feed = ""
 predictions = {}
 
-
+totalpoints = 0
 while feed != "EXIT":
     
     feed = input("Pls enter a move: ")
@@ -104,12 +104,12 @@ while feed != "EXIT":
     # get total amount of points
     
     # calculate percentage 
-    totalpoints = 0
+    
     for key,value in predictions2.items():
         totalpoints += value
     
     for key,value in predictions2.items():
-        predictions2[key] = round(((100*value)/totalpoints)*100, 2)
+        predictions2[key] = round(((100*value)/totalpoints), 2)
         
         
         

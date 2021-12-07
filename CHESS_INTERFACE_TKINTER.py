@@ -7,7 +7,7 @@ from PIL import ImageTk, Image
 from Chess_Algorithms import *
 
 root = tk.Tk()
-a = ("Comic Sans MS", 15, "bold")
+a = ("Courier New", 15, "bold")
 b = ("Courier New", 20, "bold")
 root.geometry("800x600")
 root.resizable(False, False)
@@ -16,6 +16,7 @@ img = ImageTk.PhotoImage(Image.open("chess_img.jpg"))
 imagelabel = tk.Label(root, image=img).grid(row=0, column=0, columnspan=2, rowspan=4)
 
 
+# HOME PAGE - CONTAINING START OPTION
 class FirstPage(tk.Frame):
     def __init__(self, master):
         super().__init__(master)
@@ -23,13 +24,13 @@ class FirstPage(tk.Frame):
         root.columnconfigure(0, weight=1)  # Set weight to row and
         root.rowconfigure(0, weight=1)  # column where the widget is
 
-    # first page consists only of a start button
+    # START BUTTON WHICH TAKES US TO THE SECOND PAGE WHERE PREDICTIONS ARE MADE
     def Widgets(self):
         self.StartBtn = tk.Button(root, text='START ➤', command=self.StartFunc, font=b, bg='black', fg="white")
 
         self.StartBtn.grid(row=0, column=0, ipady=15, ipadx=20)
 
-    # removes button and moves to second page
+    # FUNCTION CALLED WHEN START  BUTTON IS CLICKED: MOVES USER TO SECOND PAGE
     def StartFunc(self):
         self.StartBtn.destroy()
         SecondPage(root)
@@ -43,15 +44,14 @@ class SecondPage(tk.Frame):
         super().__init__(master)
         self.Widgets()
         self.n = 0
-        # root.columnconfigure(0, weight=1)  # Set weight to row and
-        # root.rowconfigure(0, weight=1)  # column where the widget is
 
-    # second page consists of 2 frames
+    # SECOND PAGE
+    # CONSISTS OF 2 FRAMES; ONE FOR ENTERING USER MOVES AND THE OTHER GIVES PREDICTIONS
     def Widgets(self):
-        # MAKING BASIC LAYOUT:
+        # BASIC LAYOUT SETUP:
         self.framebox_object0 = tk.Frame(root, width=500, height=50, bg='black')
         self.framebox_object1 = tk.Frame(root, width=100, height=500, bg='black')
-        self.framebox_object2 = tk.Frame(root, width=400, height=500,bg='black')
+        self.framebox_object2 = tk.Frame(root, width=400, height=500, bg='black')
         self.framebox_object3 = tk.Frame(root, width=500, height=50, bg='black')
 
         self.framebox_object0.grid_propagate(False)
@@ -65,23 +65,26 @@ class SecondPage(tk.Frame):
         self.framebox_object3.grid(row=2, column=0, sticky="nswe", columnspan=2)
 
         # LABELING:
-        self.Label1 = tk.Label(self.framebox_object0, text="Player Movements", font=b,bg='black',fg="white")
+        self.Label1 = tk.Label(self.framebox_object0, text="Player Movements", font=b, bg='black', fg="white")
         self.Label1.grid(row=0, column=0, sticky="nswe", columnspan=1)
 
-        self.Label2 = tk.Label(self.framebox_object0, text="Player Prediction", font=b,bg='black',fg="white")
+        self.Label2 = tk.Label(self.framebox_object0, text="Player Prediction", font=b, bg='black', fg="white")
         self.Label2.grid(row=0, column=1, sticky="nswe", columnspan=1, padx=250)
 
         # BUTTONS:
-        self.Button1 = tk.Button(self.framebox_object3, text='↩Restart', font=b,command=self.RestartFunc,bg='black',fg="white")
+        self.Button1 = tk.Button(self.framebox_object3, text='↩Restart', font=b, command=self.RestartFunc, bg='black',
+                                 fg="white")
         self.Button1.grid(row=2, column=0, sticky="nswe", columnspan=1)
 
-        self.Button2 = tk.Button(self.framebox_object3, text='  Help  ', font=b,command= self.HelpFunc,bg='black',fg="white")
+        self.Button2 = tk.Button(self.framebox_object3, text='  Help  ', font=b, command=self.HelpFunc, bg='black',
+                                 fg="white")
         self.Button2.grid(row=2, column=1, sticky="nswe", columnspan=1, padx=173)
 
-        self.Button3 = tk.Button(self.framebox_object3, text='  End > ', font=b,command= self.EndFunc,bg='black',fg="white")
+        self.Button3 = tk.Button(self.framebox_object3, text='  End > ', font=b, command=self.EndFunc, bg='black',
+                                 fg="white")
         self.Button3.grid(row=2, column=2, sticky="nswe", columnspan=1)
 
-        self.EnterButton = tk.Button(self.framebox_object1, text='SUBMIT', font=b, command=self.EnterFunc,bg="grey")
+        self.EnterButton = tk.Button(self.framebox_object1, text='SUBMIT', font=b, command=self.EnterFunc, bg="grey")
         self.EnterButton.grid(row=2, column=0, sticky="nswe")
 
         # ENTRY:
@@ -90,19 +93,19 @@ class SecondPage(tk.Frame):
 
         # SCROLLBAR:
 
-    # scrollbars can only be made on canvas and listbox
+        # SCROLLBARS ARE MADE ON CANVAS AND LISTBOXES
         self.Canvas = tk.Canvas(self.framebox_object2, bg="black", height=500)
         self.Canvas.grid(row=0, column=0, sticky="nsew")
 
-        # then i add a frame on the  canvas
+        # ADDING FRAME ON CANVAS
         self.canvasFrame = tk.Frame(self.Canvas, bg="black")
         self.Canvas.create_window(0, 0, window=self.canvasFrame, anchor='nw')
 
-    # scrollbar:
+        # SCROLLBAR:
         Scroll = tk.Scrollbar(self.framebox_object2, orient=tk.VERTICAL)
         Scroll.grid(row=0, column=1, sticky="ns")
 
-    # additional configurations:
+        # ADDITIONAL CONFIGURATIONS:
         Scroll.config(command=self.Canvas.yview)
         self.Canvas.config(yscrollcommand=Scroll.set)
 
@@ -112,6 +115,8 @@ class SecondPage(tk.Frame):
     def update_scrollregion(self, event):
         self.Canvas.configure(scrollregion=self.Canvas.bbox("all"))
 
+    # FUNCTION CALLED WHEN SUBMIT BUTTON IS CALLED
+    # IT CLEARS ENTRY BOX AND CALLS ALGORITHM FUNCTION WITH THE USERS MOVE ENTERED
     def EnterFunc(self):
         # move or whatever is entered in entry:
         self.Move = self.MoveEntry.get()
@@ -124,16 +129,19 @@ class SecondPage(tk.Frame):
         self.n += 1
 
         print(self.n)
-        tk.Label(self.canvasFrame, text=result[0], font=b,bg='black',fg="white").grid(row=self.n + 1, column=0, sticky="nswe", columnspan=1)
-        tk.Label(self.canvasFrame, text=result[1], font=b,bg='black',fg="white").grid(row=self.n + 2, column=0, sticky="nswe", columnspan=1)
-        tk.Label(self.canvasFrame, text=result[2], font=b,bg='black',fg="white").grid(row=self.n + 3, column=0, sticky="nswe", columnspan=1)
+        tk.Label(self.canvasFrame, text=result[0], font=b, bg='black', fg="white").grid(row=self.n + 1, column=0,
+                                                                                        sticky="nswe", columnspan=1)
+        tk.Label(self.canvasFrame, text=result[1], font=b, bg='black', fg="white").grid(row=self.n + 2, column=0,
+                                                                                        sticky="nswe", columnspan=1)
+        tk.Label(self.canvasFrame, text=result[2], font=b, bg='black', fg="white").grid(row=self.n + 3, column=0,
+                                                                                        sticky="nswe", columnspan=1)
 
+    # FUNCTION CALLED WHEN HELP BUTTON IS CALLED
     def HelpFunc(self):
         # DESTROY PREVIOUS WINDOW:
         self.framebox_object2.destroy()
         self.framebox_object1.destroy()
         self.framebox_object0.destroy()
-
 
         self.Label1.destroy()
         self.Label2.destroy()
@@ -149,9 +157,8 @@ class SecondPage(tk.Frame):
         self.framebox_object2 = tk.Frame(root, width=400, height=500, bg='black')
         self.framebox_object2.grid(row=0, column=0, sticky="nswe")
 
-
         # Scrollbars can only be made on canvas and listbox
-        self.Canvas = tk.Canvas(self.framebox_object2,bg='black', height=550,width=780)
+        self.Canvas = tk.Canvas(self.framebox_object2, bg='black', height=550, width=780)
         self.Canvas.grid(row=0, column=0, sticky="nsew")
 
         # then i add a frame on the  canvas
@@ -170,13 +177,19 @@ class SecondPage(tk.Frame):
         self.Canvas.grid_propagate(False)
 
         # LABELING:
-        self.Label1 = tk.Label(self.canvasFrame, text="Documentation", font=b,bg='black',fg="white")
+        self.Label1 = tk.Label(self.canvasFrame, text="Documentation", font=b, bg='black', fg="white")
         self.Label1.grid(row=0, column=0, sticky="nswe", columnspan=1)
 
         # BUTTONS:
-        self.Button1 = tk.Button(self.framebox_object3, text='↩Return', font=b,command= self.ReturnToGameFunc,bg='black',fg="white")
+        self.Button1 = tk.Button(self.framebox_object3, text='↩Return', font=b, command=self.ReturnToGameFunc,
+                                 bg='black', fg="white")
         self.Button1.grid(row=2, column=0, sticky="nswe", columnspan=1)
 
+        with open('documentation.txt', 'r') as f:
+            file_contents = f.read()
+            tk.Label(self.canvasFrame, text=file_contents, font=a, bg='black', fg="white").grid(row=1, column=0, sticky="nswe", columnspan=2)
+
+    # RETURNS USER TO START PAGE
     def EndFunc(self):
         # DESTROY PREVIOUS WINDOW:
         self.framebox_object2.destroy()
@@ -214,6 +227,7 @@ class SecondPage(tk.Frame):
 
         FirstPage(self)
 
+    # CALLED USER WANTS TO LEAVE THE HELP PAGE BACK TO SECOND PAGE
     def ReturnToGameFunc(self):
         # DESTROY PREVIOUS WINDOW:
         self.framebox_object3.destroy()
@@ -226,9 +240,9 @@ class SecondPage(tk.Frame):
 
         SecondPage(self)
 
-
+# FUNCTION IS CALLED FROM ENTERFUNC WHEN USER ENTERS MOVE
+# FUNCTION TAKES MOVES FROM USERS AND MAKES POSSIBLE PREDICTIONS USING ALGORITHM
     def Algorithm(self, move):
-
         # "Algorithm"
 
         feeds = set()
@@ -272,11 +286,5 @@ class SecondPage(tk.Frame):
             return (sorted(predictions2.items(), key=operator.itemgetter(1), reverse=True)[:3])
 
 
-class ThirdPage(tk.Frame):
-    def __init__(self, master):
-        super().__init__(master)
-        self.n = 0
-
 
 root.mainloop()
-

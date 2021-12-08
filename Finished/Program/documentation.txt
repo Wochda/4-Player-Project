@@ -1,0 +1,5 @@
+Our 4 Player Chess Predictor is a standalone app which collects
+given moves of an anonymous  user and makes possible predictions
+with the use of our algorithm on who the user may be. the
+application consists 2 frames and simple beginner friendly
+functions.

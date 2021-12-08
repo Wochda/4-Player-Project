@@ -53,19 +53,19 @@ def Algorithm(move):
                 # if not create new key
                 if entry[1] not in predictions.keys():
                     predictions[entry[1]] = 1
+                    totalmoves += 1
                 else:
                     pass
                 # found move -> +1
                 predictions[entry[1]] = predictions.get(entry[1]) + 1
+                totalmoves += 1
         
         # sort dict descending
         predictions2 = dict(sorted(predictions.items(), key=lambda x: x[1], reverse=True))
 
         
         # calculate percentage
-        # create sum of all moves in totalmoves
-        for key, value in predictions2.items():
-            totalmoves += value
+        
         # Dreisatz calculation and shifting floating point by 2 with *100
         for key, value in predictions2.items():
             predictions2[key] = round(((100 * value) / totalmoves) * 100, 2)
